@@ -172,17 +172,17 @@ function buyWeapon() {
 
 // Function to sell the current weapon
 function sellWeapon() {
-        // Check if the player has more than one weapon in the inventory
+    // Check if the player has more than one weapon in the inventory
     if (inventory.length > 1) {
-                // Gain gold, remove the sold weapon, and update display
+        // Gain gold, remove the sold weapon, and update display
         gold += 15;
         goldText.innerText = gold;
         let currentWeapon = inventory.shift();
         text.innerText = "You sold a " + currentWeapon + ".";
-                // Display the updated inventory
+        // Display the updated inventory
         text.innerText += " In your inventory you have: " + inventory;
     } else {
-                // Display a message if the player tries to sell their only weapon
+        // Display a message if the player tries to sell their only weapon
         text.innerText = "Don't sell your only weapon!";
     }
 }
@@ -215,30 +215,30 @@ function goFight() {
 
 // Function for the player's attack during a fight
 function attack() {
-        // Display attack information
+    // Display attack information
     text.innerText = "The " + monsters[fighting].name + " attacks.";
     text.innerText += " You attack it with your " + weapons[currentWeapon].name + ".";
-        // Deduct player health based on monster's attack
+    // Deduct player health based on monster's attack
     health -= getMonsterAttackValue(monsters[fighting].level);
-        // Check if the player's attack hits
+    // Check if the player's attack hits
     if (isMonsterHit()) {
-                // Deduct monster health based on weapon power and randomness
+        // Deduct monster health based on weapon power and randomness
         monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
     } else {
-                // Display a message if the player misses
+        // Display a message if the player misses
         text.innerText += " You miss.";
     }
 
-        // Update health and monster health displays
+    // Update health and monster health displays
     healthText.innerText = health;
     monsterHealthText.innerText = monsterHealth;
-        // Check if the player or the monster is defeated
+    // Check if the player or the monster is defeated
     if (health <= 0) {
         lose(); // Player loses if health reaches zero
     } else if (monsterHealth <= 0) {
         fighting === 2 ? winGame() : defeatMonster(); // Win or continue fighting
     }
-        // Random chance for the player's weapon to break
+    // Random chance for the player's weapon to break
     if (Math.random() <= .1 && inventory.length !== 1) {
         text.innerText += " Your " + inventory.pop() + " breaks.";
         currentWeapon--;
@@ -248,7 +248,7 @@ function attack() {
 // Function to calculate the monster's attack value
 
 function getMonsterAttackValue(level) {
-        // Calculate hit value based on monster level and randomness
+    // Calculate hit value based on monster level and randomness
     const hit = (level * 5) - (Math.floor(Math.random() * xp));
     console.log(hit);
     return hit > 0 ? hit : 0; // Ensure a non-negative value
@@ -266,7 +266,7 @@ function dodge() {
 
 // Function for the player to defeat a monster
 function defeatMonster() {
-        // Gain gold and experience points, and update displays
+    // Gain gold and experience points, and update displays
     gold += Math.floor(monsters[fighting].level * 6.7);
     xp += monsters[fighting].level;
     goldText.innerText = gold;
@@ -292,7 +292,7 @@ function restart() {
     currentWeapon = 0;
     inventory = ["stick"];
 
-        // Update displays and go back to the town square
+    // Update displays and go back to the town square
     goldText.innerText = gold;
     healthText.innerText = health;
     xpText.innerText = xp;
